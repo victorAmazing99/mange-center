@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysLoginLogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysLoginLog">
+        <id column="ID" property="id" />
+        <result column="USER_NAME" property="userName" />
+        <result column="MSG" property="msg" />
+        <result column="STATUS" property="status" />
+        <result column="IPADDR" property="ipaddr" />
+        <result column="ACCESS_TIME" property="accessTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, USER_NAME, MSG, STATUS, IPADDR, ACCESS_TIME
+    </sql>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysDictionaryDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysDictionary">
+        <id column="ID" property="id" />
+        <result column="FIELD_NAME" property="fieldName" />
+        <result column="SYSTEM_TYPE" property="systemType" />
+        <result column="CODE" property="code" />
+        <result column="VALUE" property="value" />
+        <result column="REMARK" property="remark" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, FIELD_NAME, SYSTEM_TYPE, CODE, VALUE, REMARK
+    </sql>
+
+</mapper>

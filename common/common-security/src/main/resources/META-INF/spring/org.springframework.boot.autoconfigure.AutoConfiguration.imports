@@ -1,0 +1,5 @@
+com.victor.common.security.config.WebMvcConfig
+com.victor.common.security.service.TokenService
+com.victor.common.security.aspect.PreAuthorizeAspect
+com.victor.common.security.aspect.InnerAuthAspect
+com.victor.common.security.handler.GlobalExceptionHandler

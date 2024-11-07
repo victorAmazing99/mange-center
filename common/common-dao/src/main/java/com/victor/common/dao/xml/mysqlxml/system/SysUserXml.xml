@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysUserDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysUser">
+        <id column="ID" property="id" />
+        <result column="USER_NAME" property="userName" />
+        <result column="PASSWORD" property="password" />
+        <result column="NAME" property="name" />
+        <result column="SEX" property="sex" />
+        <result column="PHONE" property="phone" />
+        <result column="IMAGE" property="image" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="HOSPITAL_ID" property="hospitalId" />
+        <result column="AFFILIATED_ID" property="affiliatedId" />
+        <result column="ENABLED" property="enabled" />
+        <result column="ISDELERED" property="isdelered" />
+        <result column="SALT" property="salt" />
+        <result column="PAS_UPDATE_DATE" property="pasUpdateDate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, USER_NAME, PASSWORD, NAME, SEX, PHONE, IMAGE, DEPT_ID, HOSPITAL_ID, AFFILIATED_ID, ENABLED, ISDELERED, SALT, PAS_UPDATE_DATE
+    </sql>
+
+</mapper>

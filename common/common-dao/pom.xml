@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>common</artifactId>
+        <groupId>com.victor</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>common-dao</artifactId>
+
+    <profiles>
+        <profile>
+            <id>dm</id>
+            <properties>
+                <env>dmxml</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <properties>
+                <env>mysqlxml</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>sqlserver</id>
+            <activation>
+                <!--指定该环境为默认配置-->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>sqlserverxml</env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.victor</groupId>
+            <artifactId>common-entity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.yulichang</groupId>
+            <artifactId>mybatis-plus-join-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <!--directory:资源文件的路径,默认位于${basedir}/src/main/resources/目录下-->
+                <directory>src/main/java</directory>
+                <!--include:一组文件名的匹配模式,被匹配的资源将被构建过程处理-->
+                <includes>
+                    <include>**/${env}/**/*.xml</include>
+                </includes>
+                <!--excludes指定对那些文件进行忽略,如果一个文件同时满足include和exclude,则
+                exclude生效-->
+                <excludes>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+<!--                &lt;!&ndash;构建过程中是否对资源进行过滤&ndash;&gt;-->
+<!--                <filtering>false</filtering>-->
+            </resource>
+        </resources>
+
+
+    </build>
+</project>

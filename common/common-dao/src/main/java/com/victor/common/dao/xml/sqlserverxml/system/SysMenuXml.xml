@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysMenuDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysMenu">
+        <id column="ID" property="id" />
+        <result column="SYSTEM_ID" property="systemId" />
+        <result column="NAME" property="name" />
+        <result column="PARENT_ID" property="parentId" />
+        <result column="URL" property="url" />
+        <result column="component" property="component" />
+        <result column="image" property="image" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, SYSTEM_ID, NAME, PARENT_ID, URL, component, image
+    </sql>
+
+</mapper>

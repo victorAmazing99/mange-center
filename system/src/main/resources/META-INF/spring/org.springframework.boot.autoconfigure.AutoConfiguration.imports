@@ -1,0 +1,2 @@
+com.victor.system.service.AsyncLogService
+com.victor.system.aspect.LogAspect

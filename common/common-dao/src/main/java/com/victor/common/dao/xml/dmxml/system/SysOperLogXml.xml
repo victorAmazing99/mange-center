@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysOperLogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysOperLogInfo">
+        <id column="ID" property="id" />
+        <result column="TITLE" property="title" />
+        <result column="BUSINESS_TYPE" property="businessType" />
+        <result column="METHOD" property="method" />
+        <result column="REQUEST_METHOD" property="requestMethod" />
+        <result column="OPERATOR_TYPE" property="operatorType" />
+        <result column="OPER_NAME" property="operName" />
+        <result column="DEPT_NAME" property="deptName" />
+        <result column="OPER_URL" property="operUrl" />
+        <result column="OPER_IP" property="operIp" />
+        <result column="OPER_LOATION" property="operLoation" />
+        <result column="OPER_PARAM" property="operParam" />
+        <result column="JSON_RESULT" property="jsonResult" />
+        <result column="STSTUS" property="ststus" />
+        <result column="ERROR_MSG" property="errorMsg" />
+        <result column="OPER_TIME" property="operTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, TITLE, BUSINESS_TYPE, METHOD, REQUEST_METHOD, OPERATOR_TYPE, OPER_NAME, DEPT_NAME, OPER_URL, OPER_IP, OPER_LOATION, OPER_PARAM, JSON_RESULT, STSTUS, ERROR_MSG, OPER_TIME
+    </sql>
+
+</mapper>

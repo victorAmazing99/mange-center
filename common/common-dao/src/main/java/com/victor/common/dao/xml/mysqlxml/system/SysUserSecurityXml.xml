@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.victor.common.dao.system.SysUserSecurityDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.victor.common.entity.system.SysUserSecurity">
+        <id column="ID" property="id" />
+        <result column="QUESTION_ID1" property="questionId1" />
+        <result column="ANSWER1" property="answer1" />
+        <result column="QUESTION_ID2" property="questionId2" />
+        <result column="ANSWER2" property="answer2" />
+        <result column="QUESTION_ID3" property="questionId3" />
+        <result column="ANSWER3" property="answer3" />
+        <result column="ANSWER3" property="answer3" />
+        <result column="USER_ID" property="userId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID, QUESTION_ID1, ANSWER1, QUESTION_ID2, ANSWER2, QUESTION_ID3, ANSWER3,USER_ID
+    </sql>
+
+</mapper>

@@ -1,0 +1,114 @@
+# Tomcat jetty
+server:
+  port: 9210
+
+# Spring
+spring:
+  application:
+    # 应用名称
+    name: manage-server
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      web-stat-filter:
+        enabled: true
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico
+        url-pattern: /*
+      stat-view-servlet:
+        enabled: true
+        allow:
+        loginUsername: admin
+        loginPassword: 123456
+        resetEnable: false
+      connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
+    dynamic:
+      druid:
+        initial-size: 5
+        min-idle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,slf4j
+
+      primary: master
+      datasource:
+        # 主库数据源(暂未使用,自己配置)
+        master:
+            driver-class-name: dm.jdbc.driver.DmDriver
+            url: jdbc:dm://192.168.0.249:5236/PHUSERS
+            username: PHUSERS
+            password: Zy123456
+        # 从库数据源
+        system:
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.0.195:3306/hclub_system
+          username: club
+          password: Club5678
+        job:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.0.195:3306/hclub_job
+          username: club
+          password: Club5678
+  autoconfigure:
+    exclude: com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    host: 192.168.0.246
+    port: 6380
+    password:
+    database: 1
+  main:
+    allow-circular-references: true
+
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+# mybatis配置
+mybatis-plus:
+  # 搜索指定包别名
+  typeAliasesPackage: com.victor.common.entity,;com.victor.job.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:/com/victor/common/dao/xml/**/*.xml,classpath:mapper/**/*.xml
+
+# swagger配置
+swagger:
+  title: 健康档案接口文档
+  basePackage:
+    - com.victor.auth.controller
+    - com.victor.server.controller
+    - com.victor.system.controller
+    - com.victor.job.controller
+
+encrypt:
+  sm2:
+    whiteListStr: /*/v2/api-docs,/csrf,/error,/*/druid/**
+    publicKey: 04025d84101aa6ba2835995c2e72c0d9f49f382a87ace7e2770a511e1bbe95a40a2800a40bc966b3a51e4d36735e2b5941dd6e10f502f68fbc42a0ba7cec7ab249
+    privateKey: 124c93b524b25e8ca288dde1c08b78e76e188d2e6e6c7a5142cdc3eb38a5ab62
+    enabled: true
+
+# 演示环境开关配置：true(演示代码)，false(第三方代码)
+demonstrate:
+  switch: true
+
+system:
+  init:
+    userPassword: 12345678
+
+security:
+  # 验证码
+  captcha:
+    enabled: true
+    type: char
