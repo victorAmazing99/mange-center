@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <!-- 日志存放路径 -->
+	<!-- 日志存放路径 -->
 	<property name="log.path" value="logs/server" />
-   <!-- 日志输出格式 -->
-    <property name="log.pattern" value=" Level:[%-5level] [%X{traceId:-},%X{spanId:-}] %d{HH:mm:ss} %c %M %L --- %m%n"/>
+	<!-- 日志输出格式 -->
+	<property name="log.pattern" value=" Level:[%-5level] [%X{traceId:-},%X{spanId:-}] %d{HH:mm:ss} %c %M %L --- %m%n"/>
 
-    <!-- 控制台输出 -->
+	<!-- 控制台输出 -->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
 			<pattern>${log.pattern}</pattern>
 		</encoder>
 	</appender>
 
-    <!-- 系统日志输出 -->
+	<!-- 系统日志输出 -->
 	<appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/info.log</file>
-        <!-- 循环政策：基于时间创建日志文件 -->
+		<file>${log.path}/info.log</file>
+		<!-- 循环政策：基于时间创建日志文件 -->
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 日志文件名格式 -->
-			<fileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- 日志文件名格式 -->
+			<fileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 			<!-- 日志最大的历史 60天 -->
-			<maxHistory>60</maxHistory>
+			<maxHistory>30</maxHistory>
+			<!-- 策略触发器：告知 RollingFileAppender 合适激活滚动 -->
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!--文件达到 最大值时会被压缩和切割 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<totalSizeCap>10GB</totalSizeCap>
+
+		</rollingPolicy>
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.path}/error.log</file>
+		<!-- 循环政策：基于时间创建日志文件 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 日志文件名格式 -->
+			<fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!-- 日志最大的历史 60天 -->
+			<maxHistory>30</maxHistory>
+			<!-- 策略触发器：告知 RollingFileAppender 合适激活滚动 -->
+			<timeBasedFileNamingAndTriggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!--文件达到 最大值时会被压缩和切割 -->
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+
 		</rollingPolicy>
 		<encoder>
 			<pattern>${log.pattern}</pattern>
 		</encoder>
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 过滤的级别 -->
-            <level>INFO</level>
-            <!-- 匹配时的操作：接收（记录） -->
-            <onMatch>ACCEPT</onMatch>
-            <!-- 不匹配时的操作：拒绝（不记录） -->
-            <onMismatch>DENY</onMismatch>
-        </filter>
+			<!-- 过滤的级别 -->
+			<level>ERROR</level>
+			<!-- 匹配时的操作：接收（记录） -->
+			<onMatch>ACCEPT</onMatch>
+			<!-- 不匹配时的操作：拒绝（不记录） -->
+			<onMismatch>DENY</onMismatch>
+		</filter>
 	</appender>
 
-    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-	    <file>${log.path}/error.log</file>
-        <!-- 循环政策：基于时间创建日志文件 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<!-- 日志最大的历史 60天 -->
-			<maxHistory>60</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>${log.pattern}</pattern>
-        </encoder>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 过滤的级别 -->
-            <level>ERROR</level>
-			<!-- 匹配时的操作：接收（记录） -->
-            <onMatch>ACCEPT</onMatch>
-			<!-- 不匹配时的操作：拒绝（不记录） -->
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
-
-    <!-- 系统模块日志级别控制  -->
-	<logger name="com.victor" level="debug" />
-	<!-- Spring日志级别控制(warn能打印sql日志,如不需要可更改为其他级别)  -->
+	<!-- 系统模块日志级别控制  -->
+	<logger name="com.victor" level="debug" additivity="false" >
+		<appender-ref ref="file_info" />
+		<appender-ref ref="file_error" />
+	</logger>
+	<!-- Spring日志级别控制  -->
 	<logger name="org.springframework" level="warn" />
 
-	<root level="info">
-		<appender-ref ref="console" />
-	</root>
+	<!--	<root level="info">-->
+	<!--		<appender-ref ref="console" />-->
+	<!--	</root>-->
 
 	<!--系统操作日志-->
-<!--    <root level="info">-->
-<!--        <appender-ref ref="file_info" />-->
-<!--        <appender-ref ref="file_error" />-->
-<!--    </root>-->
+	<root level="info">
+		<appender-ref ref="file_info" />
+		<appender-ref ref="file_error" />
+	</root>
 </configuration>
