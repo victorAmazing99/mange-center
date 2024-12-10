@@ -1,6 +1,8 @@
 package com.victor.common.security.aspect;
 
 import com.victor.common.security.annotation.RequiresLogin;
+import com.victor.common.security.annotation.RequiresPermissions;
+import com.victor.common.security.annotation.RequiresRoles;
 import com.victor.common.security.auth.AuthUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -77,18 +79,18 @@ public class PreAuthorizeAspect {
             AuthUtil.checkLogin();
         }
 
-//        // 校验 @RequiresRoles 注解
-//        RequiresRoles requiresRoles = method.getAnnotation(RequiresRoles.class);
-//        if (requiresRoles != null)
-//        {
-//            AuthUtil.checkRole(requiresRoles);
-//        }
-//
-//        // 校验 @RequiresPermissions 注解
-//        RequiresPermissions requiresPermissions = method.getAnnotation(RequiresPermissions.class);
-//        if (requiresPermissions != null)
-//        {
-//            AuthUtil.checkPermi(requiresPermissions);
-//        }
+        // 校验 @RequiresRoles 注解
+        RequiresRoles requiresRoles = method.getAnnotation(RequiresRoles.class);
+        if (requiresRoles != null)
+        {
+            AuthUtil.checkRole(requiresRoles);
+        }
+
+        // 校验 @RequiresPermissions 注解
+        RequiresPermissions requiresPermissions = method.getAnnotation(RequiresPermissions.class);
+        if (requiresPermissions != null)
+        {
+            AuthUtil.checkPermi(requiresPermissions);
+        }
     }
 }
